@@ -42,8 +42,9 @@ func createPersonEndPoint(response http.ResponseWriter, request *http.Request) {
 	h := sha1.New()
 	h.Write([]byte(s))
 	bs := h.Sum(nil)
+	person.Password = string(bs)
 	fmt.Println(s)
-	fmt.Printf("%x\n", bs)
+	fmt.Printf("%x\n", person.Password)
 	json.NewDecoder(request.Body).Decode(&person)
 	collection := client.Database("instagram").Collection("Person")
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
@@ -123,4 +124,3 @@ func main() {
 	http.ListenAndServe(":12345", router)
 
 }
- 
