@@ -41,6 +41,13 @@ func createPersonEndPoint(response http.ResponseWriter, request *http.Request) {
 	fmt.Println(string(insta))
 	response.Header().Add("content-type", "application/json")
 	var person Person
+	s := person.Password
+	h := sha1.New()
+	h.Write([]byte(s))
+	bs := h.Sum(nil)
+	person.Password = string(bs)
+	fmt.Println(s)
+	fmt.Printf("%x\n", person.Password)
 	json.NewDecoder(request.Body).Decode(&person)
 	collection := client.Database("instagram").Collection("insta")
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
