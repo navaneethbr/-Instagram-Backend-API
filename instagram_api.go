@@ -99,14 +99,14 @@ func main() {
 		log.Fatal(err)
 	}
 
-	/*router := mux.NewRouter()
+	router := mux.NewRouter()
 
 	router.HandleFunc("/users", createPersonEndPoint).Methods("POST")
 	router.HandleFunc("/users/{id}", getPersonEndPoint).Methods("GET")
 	router.HandleFunc("/posts", createPostEndPoint).Methods("POST")
 	router.HandleFunc("/posts/{id}", getPostEndPoint).Methods("GET")
 	http.ListenAndServe(":12345", router)
-	*/
+	
 	defer client.Disconnect(ctx)
 	err = client.Ping(ctx, readpref.Primary())
 	if err != nil {
